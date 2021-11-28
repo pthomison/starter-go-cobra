@@ -1,10 +1,5 @@
-# This is an example .goreleaser.yml file with some sane defaults.
-# Make sure to check the documentation at http://goreleaser.com
-before:
-  hooks:
-    # You may remove this if you don't use go modules.
-    - go mod tidy
-    - go fmt ./...
+project_name: starter-go-cobra
+
 builds:
   - env:
       - CGO_ENABLED=0
@@ -16,23 +11,17 @@ builds:
       - amd64
       - arm
       - arm64
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+
 checksum:
   name_template: 'checksums.txt'
+
 snapshot:
   name_template: "{{ .Tag }}-next"
+
 brews:
-  - 
-    tap:
+  - tap:
       owner: pthomison
       name: homebrew-tools
-
 
 nfpms:
   - 
@@ -47,3 +36,16 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+before:
+  hooks:
+    - go mod tidy
+    - go fmt ./...
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
